@@ -4,7 +4,7 @@ const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const app = express();
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 app.use(fileUpload({}));
 
 app.use(cors());
@@ -26,6 +26,7 @@ app.use(
 
 app.use('/gdrive', require('./routes/gdrive'));
 app.use('/ibmFile', require('./routes/ibmFileStorage'));
+app.use('/dropbox', require('./routes/dropbox'));
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
