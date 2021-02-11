@@ -14,6 +14,7 @@
         "express-fileupload": "^1.2.1",
         "googleapis": "^39.2.0",
         "ibm-cos-sdk": "^1.9.0",
+        "mongoose": "^5.11.15",
         "request": "^2.88.2",
         "requests": "^0.3.0",
         "stripe": "^8.135.0"
