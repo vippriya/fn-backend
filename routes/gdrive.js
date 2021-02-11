@@ -3,13 +3,14 @@ const router = express.Router();
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
-const credentials  = {"web":{"client_id":"775796390772-kgakb60h2u4e2vqmt7cmd5ab0aqhcp68.apps.googleusercontent.com",
-    "project_id":"quickstart-1610717237729","auth_uri":"https://accounts.google.com/o/oauth2/auth",
-    "token_uri":"https://oauth2.googleapis.com/token",
-    "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
-    "client_secret":"mjKql3HGBaYGdC6uIlWujRwY",
+const credentials  = {"web":{
+    "client_id":process.env.GOOGLE_CLIENT_ID,
+    "project_id":process.env.GOOGLE_PROJECT_ID,
+    "auth_uri":process.env.GOOGLE_AUTH_URI,
+    "token_uri":process.env.GOOGLE_TOKEN_URI,
+    "auth_provider_x509_cert_url":process.env.GOOGLE_AUTH_PROVIDER,
+    "client_secret":process.env.GOOGLE_CLIENT_SECRET,
     "redirect_uris":["http://localhost:3000/gdrive"]}}
-
 const {client_secret, client_id, redirect_uris} = credentials.web;
 const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 const SCOPES = ['https://www.googleapis.com/auth/drive','https://www.googleapis.com/auth/drive.file'];

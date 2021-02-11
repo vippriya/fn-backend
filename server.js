@@ -3,6 +3,7 @@ const cors = require('cors');
 const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const app = express();
+require('dotenv').config({ path: './.env' });
 
 const port = process.env.PORT || 3000;
 app.use(fileUpload({}));
@@ -27,6 +28,11 @@ app.use(
 app.use('/gdrive', require('./routes/gdrive'));
 app.use('/ibmFile', require('./routes/ibmFileStorage'));
 app.use('/dropbox', require('./routes/dropbox'));
+app.use('/application', require('./routes/application'));
+app.use('/application_reference', require('./routes/applicationReference'));
+app.use('/notification', require('./routes/notification'));
+app.use('/product', require('./routes/product'));
+app.use('/product_category', require('./routes/productCategory'));
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);

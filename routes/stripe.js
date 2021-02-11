@@ -138,3 +138,4 @@ router.post('/retrieve-customer-payment-method', async (req, res) => {
 * I have removed this endpoint, we have it in the backup if needed
 *
 * */
+module.exports = router;
