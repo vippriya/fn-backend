@@ -15,7 +15,8 @@
         "googleapis": "^39.2.0",
         "ibm-cos-sdk": "^1.9.0",
         "request": "^2.88.2",
-        "requests": "^0.3.0"
+        "requests": "^0.3.0",
+        "stripe": "^8.135.0"
     },
     "devDependencies": {
         "cors": "^2.8.5",
