@@ -86,9 +86,9 @@ router.put('/', (req,res)=>{
 // Delete single application
 router.delete('/', (req,res)=>{
   Application.findOneAndRemove({
-    'product_id': req.body.product_id
-  }).then(speculator => {
-    if (speculator === null) {
+    product_id: req.body.product_id
+  }).then(application => {
+    if (application === null) {
       res.send({
           'status': false,
           'err_msg': 'Application not found with the given product_id'
