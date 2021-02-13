@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Application = require('../models/application');
+const Application = require('../modals/application');
 // Fetch all applications
 router.get('/all',(req,res)=>{
   Application.find({}).then(applications=>{

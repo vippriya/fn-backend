@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Product = require('../models/product');
+const Product = require('../modals/product');
 // Fetch all products
 router.get('/all',(req,res)=>{
   Product.find({}).then(products=>{

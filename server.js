@@ -4,7 +4,9 @@ const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const app = express();
 require('dotenv').config({ path: './.env' });
-
+const dbConnection = require('./db');
+// db connectivity
+dbConnection();
 const port = process.env.PORT || 3000;
 app.use(fileUpload({}));
 

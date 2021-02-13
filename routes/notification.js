@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Notification = require('../models/notification');
+const Notification = require('../modals/notification');
 // Fetch all notifications
 router.get('/all',(req,res)=>{
   Notification.find({}).then(notifications=>{

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ApplicationReference = require('../models/applicationReference');
+const ApplicationReference = require('../modals/applicationReference');
 // Fetch all applications
 router.get('/all',(req,res)=>{
   ApplicationReference.find({}).then(application_references=>{

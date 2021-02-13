@@ -1,3 +1,12 @@
-module.exports = {
-  mongoURI: 'mongodb://127.0.0.1:27017'
-};
+
+const mongoose = require('mongoose');
+
+module.exports = async () => {
+  try {
+    await mongoose.connect(process.env.DB_URL, {useNewUrlParser: true});
+    console.log('Database Connected');
+  } catch (error) {
+    console.log('Database Connectivity Error', error);
+    throw new Error(error);
+  }
+}

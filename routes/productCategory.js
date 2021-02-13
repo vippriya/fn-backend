@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ProductCategory = require('../models/productCategory');
+const ProductCategory = require('../modals/productCategory');
 // Fetch all product_categorys
 router.get('/all',(req,res)=>{
   ProductCategory.find({}).then(product_categorys=>{
