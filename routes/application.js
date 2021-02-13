@@ -16,7 +16,7 @@ router.get('/all',(req,res)=>{
   })
 })
 // Give single application with given product_id
-router.get('/all/:product_id',(req,res)=>{
+router.get('/:product_id',(req,res)=>{
   Application.find({product_id:req.params.product_id}).then(application=>{
     return res.send({
       status:true,

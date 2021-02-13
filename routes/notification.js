@@ -19,7 +19,7 @@ router.get('/all',(req,res)=>{
 
 
 /**TODO: We need to know if url is the unique field value*/
-router.get('/all/:url',(req,res)=>{
+router.get('/:url',(req,res)=>{
   Notification.find({url:req.params.url}).then(notification=>{
     return res.send({
       status:true,

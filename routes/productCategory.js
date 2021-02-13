@@ -18,7 +18,7 @@ router.get('/all',(req,res)=>{
 // Give single product_category with given product_category_id
 
 
-router.get('/all/:name',(req,res)=>{
+router.get('/:name',(req,res)=>{
   ProductCategory.find({name:req.params.name}).then(product_category=>{
     return res.send({
       status:true,

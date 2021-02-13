@@ -18,7 +18,7 @@ router.get('/all',(req,res)=>{
 // Give single product with given product_id
 
 
-router.get('/all/:name',(req,res)=>{
+router.get('/:name',(req,res)=>{
   Product.find({name:req.params.name}).then(product=>{
     return res.send({
       status:true,
