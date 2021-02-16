@@ -3,17 +3,25 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ProductCategorySchema = new Schema({
+  id: {
+    type: String,
+    required: true
+  },
   name: {
     type: String,
     required: true
   },
   description: {
     type: String,
-    required: true
+    required: false
   },
   icon: {
     type: String,
-    required: true
+    required: false
+  },
+  tags: {
+    type: String,
+    required: false
   }
 }, {
   timestamps: true,

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../modals/product');
 // Fetch all products
+
 router.get('/all',(req,res)=>{
   Product.find({}).then(products=>{
     return res.send({
@@ -31,15 +32,13 @@ router.get('/:name',(req,res)=>{
     });
   })
 })
+
 // Create a single product
 router.post('/create', (req, res) => {
   /**TODO: We need to verify if the product already exisit before we save the product to remove duplicates*/
-  const data = new Product({
-    name:req.body.name,
-    description:req.body.description,
-    icon:req.body.icon,
-    categories:req.body.categories,
-  });
+  const {id, name,  title, description, icon, hero, categories, tags, remarks} = req.body;
+  const data = new Product({id, name,  title, description, icon, hero, categories, tags, remarks});
+  console.log(data) 
   data.save().then(product=>{
     res.send({
       status:true,

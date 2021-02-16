@@ -33,8 +33,10 @@ router.get('/:name',(req,res)=>{
 })
 // Create a single product_category
 router.post('/create', (req, res) => {
+  console.log(req.body)
   /**TODO: We need to verify if the product_category already exisit before we save the product_category to remove duplicates*/
   const data = new ProductCategory({
+    id: req.body.id,
     name:req.body.name,
     description:req.body.description,
     icon:req.body.icon,

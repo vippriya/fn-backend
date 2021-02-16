@@ -3,25 +3,21 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ApplicationReferenceSchema = new Schema({
-  link_id: {
+  id: {
     type: String,
     required: true
   },
-  application_id: {
-    type: String,
-    required: true
-  },
-  url: {
-    type: String,
-    required: true
-  },
-  title: {
-    type: String,
-    required: true
+  links: {
+    type: Array,
+    required: false
   },
   tags: {
     type: String,
-    required: true
+    required: false
+  },
+  remarks: {
+    type: String,
+    required: false
   }
 }, {
   timestamps: true,
