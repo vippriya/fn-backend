@@ -52,14 +52,14 @@ app.get("/send-email2", async (request, response) => {
       host: "smtp.gmail.com",
       port: 2525,
       auth: {
-         user: "vippriya@gmail.com",
-         pass: "Lokam4nakosam",
+         user: "ccc",
+         pass: "cccc",
       }
     });
 
     const emailData = {
-      from: "vippriya@gmail.com",
-      to: "vippriyao@gmail.com",
+      from: "ccc",
+      to: "ccccc",
       subject: "A test email",
       html: "<p> Hi there, this is a test email </p>"
     };

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const Schema = mongox ose.Schema;
 
 const ApplicationReferenceSchema = new Schema({
   id: {
