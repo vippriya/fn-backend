@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs')
 const Notification = require('../modals/notification');
-
+const helper = require('./helper/helper');
 
 // Fetch all notifications
 router.get('/all',(req,res)=>{
@@ -20,8 +20,8 @@ router.get('/all',(req,res)=>{
 })
 // Give single notification with given product_id
 
-async function fillOnRequest(req, res, data)  {
-  await deleteAllData();
+/*async function fillOnRequest(req, res, data)  {
+  await deleteAllData(Notification);
   Notification.insertMany(data).then(function(){ 
     res.send({
             status: true,
@@ -37,6 +37,7 @@ async function fillOnRequest(req, res, data)  {
           );
   });
 }
+*/
 
 /**TODO: We need to know if url is the unique field value*/
 router.get('/:url',(req,res)=>{
@@ -76,28 +77,16 @@ router.post('/create', (req, res) => {
 });
 
 router.post('/fn_fillAll', (req, res) => {
-  fs.readFile('./data/notification.json', 'utf8', (err, jsonString) => {
-    
-    const notificationData = JSON.parse(jsonString)
-    
-    fillOnRequest(req, res, notificationData)
-
-    if (err) {
-        console.log("File read failed:", err)
-        return
-    }
-
-  })
-
-}); 
-const deleteAllData = async () => {
-  try {
-    await Notification.deleteMany();
-    console.log('All Data successfully deleted');
-  } catch (err) {
-    console.log(err);
+  const params = {
+    req,
+    res,
+    filePath: './data/notification.json',
+    modelName: "Notification",
+    model: Notification
   }
-};
+  helper.initializeCollection(params)
+}); 
+
 
 // Update single notification
 router.put('/', (req,res)=>{

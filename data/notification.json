@@ -1,5 +1,5 @@
 [ 
-      { "id": "1", "title": "testing me", "short_desc": "bac", "detail_desc": "detailed bec", "type": "xux", "imgSrc": "/images/general/Notifications.svg"},
+      { "id": "1", "title": "check me", "short_desc": "bac", "detail_desc": "detailed bec", "type": "xux", "imgSrc": "/images/general/Notifications.svg"},
       { "id": "2", "title": "def testing", "short_desc": "bac", "detail_desc": "detailed bec", "type": "xux", "imgSrc": "/images/general/Notifications.svg"},
       { "id": "3", "title": "def testing", "short_desc": "bac", "detail_desc": "detailed bec", "type": "xux", "imgSrc": "/images/general/Notifications.svg"}
 
