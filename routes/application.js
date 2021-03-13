@@ -1,12 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const Application = require('../modals/application');
+const Product= require('../modals/product');
 const helper = require('./helper/helper');
 
+function onSuccess( res, result){
+ return res.send({
+      status:true,
+      msg: "hello",
+      ...result
+    })
+}
+ function onFailure(res, e){
+   return res.send({
+      status:false,
+      e
+    });
+ }
 
-// Fetch all applications
+
 router.get('/all',(req,res)=>{
+
   Application.find({}).then(applications=>{
+      console.log(":::::::::2::::::::::::", applications)
     return res.send({
       status:true,
       applications
@@ -18,6 +34,8 @@ router.get('/all',(req,res)=>{
     });
   })
 })
+
+// Fetch all applications
 // Give single application with given product_id
 router.get('/:product_id',(req,res)=>{
   Application.find({product_id:req.params.product_id}).then(application=>{
@@ -112,6 +130,8 @@ router.delete('/', (req,res)=>{
     );
   });
 })
+
+
 
 router.post('/fn_fillAll', (req, res) => {
   const params = {

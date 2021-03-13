@@ -1,10 +1,43 @@
 const express = require('express');
 const router = express.Router();
 const ProductCategory = require('../modals/productCategory');
+const Application = require('../modals/application');
+const Product= require('../modals/product');
 const helper = require('./helper/helper');
 
+function onSuccess( res, result){
+ return res.send({
+      status:true,
+      ...result
+    })
+}
+ function onFailure(res, e){
+   return res.send({
+      status:false,
+      e
+    });
+ }
+
+
+router.get('/all',  (req,res)=>{
+
+    
+      Application.find({}).then(applications =>{
+        let result = { applications}   
+        Product.find({}).then(products =>{
+          result = { ...result, products}
+          ProductCategory.find({}).then(product_category =>{
+            result = { ...result, products, productCategories:product_category }
+            onSuccess(res, result)
+
+          }).catch((e)=>onFailure(res, e))
+        }).catch((e)=>onFailure(res, e))
+      }).catch((e)=>onFailure(res, e))
+  
+})
+
 // Fetch all product_categorys
-router.get('/all',(req,res)=>{
+/*router.get('/all',(req,res)=>{
   ProductCategory.find({}).then(product_categorys=>{
     return res.send({
       status:true,
@@ -17,9 +50,10 @@ router.get('/all',(req,res)=>{
     });
   })
 })
+*/
 // Give single product_category with given product_category_id
 
-
+/*
 router.get('/:name',(req,res)=>{
   ProductCategory.find({name:req.params.name}).then(product_category=>{
     return res.send({
@@ -33,6 +67,7 @@ router.get('/:name',(req,res)=>{
     });
   })
 })
+*/
 // Create a single product_category
 router.post('/create', (req, res) => {
   console.log(req.body)
@@ -114,6 +149,7 @@ router.delete('/', (req,res)=>{
     );
   });
 })
+
 router.post('/fn_fillAll', (req, res) => {
   const params = {
     req,

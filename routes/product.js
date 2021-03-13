@@ -2,6 +2,22 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../modals/product');
 const helper = require('./helper/helper');
+const Application = require('../modals/application');
+
+
+function onSuccess( res, result){
+ return res.send({
+      status:true,
+      msg: "hello",
+      ...result
+    })
+}
+ function onFailure(res, e){
+   return res.send({
+      status:false,
+      e
+    });
+ }
 
 // Fetch all products
 
@@ -115,6 +131,7 @@ router.delete('/', (req,res)=>{
     );
   });
 })
+
 
 router.post('/fn_fillAll', (req, res) => {
   const params = {
