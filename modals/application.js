@@ -3,6 +3,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ApplicationSchema = new Schema({
+  id: {
+    type: String,
+    required: true
+  },
   name: {
     type: String,
     required: true
@@ -16,6 +20,14 @@ const ApplicationSchema = new Schema({
     required: true
   },
   product_id: {
+    type: String,
+    required: true
+  },
+  links: {
+    type: String,
+    required: true
+  },
+  tags: {
     type: String,
     required: true
   }

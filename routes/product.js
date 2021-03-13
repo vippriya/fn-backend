@@ -33,11 +33,13 @@ router.get('/:name',(req,res)=>{
   })
 })
 
+
+
 // Create a single product
 router.post('/create', (req, res) => {
   /**TODO: We need to verify if the product already exisit before we save the product to remove duplicates*/
   const {id, name,  title, description, icon, hero, categories, tags, remarks} = req.body;
-  const data = new Product({id, name,  title, description, icon, hero, categories, tags, remarks});
+  const data = new Product({id, name,  title, description, icon, hero, categories, tags, remarks, links: links || []});
   console.log(data) 
   data.save().then(product=>{
     res.send({
@@ -45,6 +47,7 @@ router.post('/create', (req, res) => {
       product
     })
   }).catch(e=>{
+    console.log("::::::::::::::::error:::::::::::::::::::::", e)
     res.send({
       status:false,
       e

@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs')
 const Notification = require('../modals/notification');
-
-
 // Fetch all notifications
 router.get('/all',(req,res)=>{
   Notification.find({}).then(notifications=>{
@@ -20,25 +17,6 @@ router.get('/all',(req,res)=>{
 })
 // Give single notification with given product_id
 
-function fillOnRequest(req, res, data)  {
-  /**TODO: We need to verify if the notification already exisit before we save the notification to remove duplicates*/
-  Notification.remove( { } )
-  Notification.insertMany(data).then(function(){ 
-      console.log("Data inserted,..........")  // Success 
-      res.send({
-              status: true,
-              msg: 'Notification successfully updated'
-            }
-          );
-  }).catch(function(error){ 
-      console.log(error)      // Failure 
-       res.send({
-              status: false,
-              msg: 'Notification updateerror'
-            }
-          );
-  });
-}
 
 /**TODO: We need to know if url is the unique field value*/
 router.get('/:url',(req,res)=>{
@@ -76,22 +54,6 @@ router.post('/create', (req, res) => {
     })
   })
 });
-
-router.post('/fn_fillAll', (req, res) => {
-  fs.readFile('./data/notification.json', 'utf8', (err, jsonString) => {
-      console.log("::", jsonString)
-    const notificationData = JSON.parse(jsonString)
-    
-    fillOnRequest(req, res, notificationData)
-
-    if (err) {
-        console.log("File read failed:", err)
-        return
-    }
-    console.log('File data:', jsonString) 
-  })
-
-}); 
 // Update single notification
 router.put('/', (req,res)=>{
   let {title, short_desc, detail_desc, url, type} = req.body;
