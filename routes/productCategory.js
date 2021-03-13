@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const ProductCategory = require('../modals/productCategory');
+const helper = require('./helper/helper');
+
 // Fetch all product_categorys
 router.get('/all',(req,res)=>{
   ProductCategory.find({}).then(product_categorys=>{
@@ -112,4 +114,14 @@ router.delete('/', (req,res)=>{
     );
   });
 })
+router.post('/fn_fillAll', (req, res) => {
+  const params = {
+    req,
+    res,
+    filePath: './data/productCategory.json',
+    modelName: "ProductCategory",
+    model: ProductCategory
+  }
+  helper.initializeCollection(params)
+}); 
 module.exports = router;

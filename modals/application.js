@@ -9,31 +9,32 @@ const ApplicationSchema = new Schema({
   },
   name: {
     type: String,
-    required: true
+    required: false
   },
   description: {
     type: String,
-    required: true
+    required: false
   },
   version: {
     type: String,
-    required: true
+    required: false
   },
   product_id: {
     type: String,
-    required: true
+    required: false
   },
   links: {
     type: String,
-    required: true
+    required: false
   },
   tags: {
     type: String,
-    required: true
+    required: false
   }
 }, {
   timestamps: true,
 });
+
 
 const Application = mongoose.model('Application', ApplicationSchema);
 

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+
 const ProductCategorySchema = new Schema({
   id: {
     type: String,
@@ -26,6 +27,7 @@ const ProductCategorySchema = new Schema({
 }, {
   timestamps: true,
 });
+
 
 const ProductCategory = mongoose.model('ProductCategory', ProductCategorySchema);
 

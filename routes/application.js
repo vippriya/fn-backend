@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Application = require('../modals/application');
+const helper = require('./helper/helper');
+
+
 // Fetch all applications
 router.get('/all',(req,res)=>{
   Application.find({}).then(applications=>{
@@ -109,4 +112,16 @@ router.delete('/', (req,res)=>{
     );
   });
 })
+
+router.post('/fn_fillAll', (req, res) => {
+  const params = {
+    req,
+    res,
+    filePath: './data/application.json',
+    modelName: "Application",
+    model: Application
+  }
+  helper.initializeCollection(params)
+}); 
+
 module.exports = router;
