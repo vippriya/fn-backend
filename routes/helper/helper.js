@@ -13,13 +13,16 @@ const deleteAllData = async (model) => {
 
  async function fillOnRequest({req, res, model, data, modelName})  {
   await deleteAllData(model);
+  console.log("deleted exising data", modelName)
   model.insertMany(data).then(function(){ 
     res.send({
             status: true,
             msg: modelName + 'successfully updated'
           }
         );
+      console.log("inserted new data", modelName)
   }).catch(function(error){ 
+      console.log("error while inserting data", modelName)
       console.log(error)      // Failure 
        res.send({
               status: false,

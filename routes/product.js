@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../modals/product');
+const helper = require('./helper/helper');
+
 // Fetch all products
 
 router.get('/all',(req,res)=>{
@@ -113,4 +115,16 @@ router.delete('/', (req,res)=>{
     );
   });
 })
+
+router.post('/fn_fillAll', (req, res) => {
+  const params = {
+    req,
+    res,
+    filePath: './data/product.json',
+    modelName: "Product",
+    model: Product
+  }
+  helper.initializeCollection(params)
+}); 
+
 module.exports = router;
