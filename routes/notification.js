@@ -20,16 +20,14 @@ router.get('/all',(req,res)=>{
 })
 // Give single notification with given product_id
 
-function fillOnRequest(req, res, data)  {
-  /**TODO: We need to verify if the notification already exisit before we save the notification to remove duplicates*/
-  Notification.remove( { } )
+async function fillOnRequest(req, res, data)  {
+  await deleteAllData();
   Notification.insertMany(data).then(function(){ 
-      console.log("Data inserted,..........")  // Success 
-      res.send({
-              status: true,
-              msg: 'Notification successfully updated'
-            }
-          );
+    res.send({
+            status: true,
+            msg: 'Notification successfully updated'
+          }
+        );
   }).catch(function(error){ 
       console.log(error)      // Failure 
        res.send({
@@ -79,7 +77,7 @@ router.post('/create', (req, res) => {
 
 router.post('/fn_fillAll', (req, res) => {
   fs.readFile('./data/notification.json', 'utf8', (err, jsonString) => {
-      console.log("::", jsonString)
+    
     const notificationData = JSON.parse(jsonString)
     
     fillOnRequest(req, res, notificationData)
@@ -88,10 +86,19 @@ router.post('/fn_fillAll', (req, res) => {
         console.log("File read failed:", err)
         return
     }
-    console.log('File data:', jsonString) 
+
   })
 
 }); 
+const deleteAllData = async () => {
+  try {
+    await Notification.deleteMany();
+    console.log('All Data successfully deleted');
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // Update single notification
 router.put('/', (req,res)=>{
   let {title, short_desc, detail_desc, url, type} = req.body;
