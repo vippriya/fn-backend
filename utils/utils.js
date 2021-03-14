@@ -7,7 +7,17 @@ function createMapFromArray(items, idKey="id"){
   })
   return itemsMap;
 }
+function getAttributeList(items, attributeKey){
+  return items.map(item=> item[attributeKey])
+}
+function getAllAttributesFromArrayKey(items, attributeKey){
+  var result = [];
+  items.forEach(item=> result = [...result, ...item[attributeKey]])
+  return result;
+}
 const utils = {
-    createMapFromArray
+    createMapFromArray,
+    getAttributeList,
+    getAllAttributesFromArrayKey
 }
 module.exports  = utils

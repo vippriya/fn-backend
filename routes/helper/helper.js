@@ -68,6 +68,7 @@ function onSuccess( res, result){
     return { [filterDbParam]: { $in: ids} };
 }
 
+
 const helpers = {
     getAppQueryListParams,
     initializeCollection,

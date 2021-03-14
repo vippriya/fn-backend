@@ -4,7 +4,7 @@ const ProductCategory = require('../modals/productCategory');
 const Application = require('../modals/application');
 const Product= require('../modals/product');
 const {getAppQueryListParams, onSuccess, onFailure, initializeCollection} = require('./helper/helper');
-const {createMapFromArray} = require('../utils/utils');
+const {createMapFromArray, getAttributeList, getAllAttributesFromArrayKey} = require('../utils/utils');
 
 
 router.get('/all',  (req,res)=>{
@@ -12,12 +12,15 @@ router.get('/all',  (req,res)=>{
     const ignoreParams = { _id: 0, createdAt: 0};
     const productIgnoreParams = { updatedAt: 0, ...ignoreParams};
     Application.find(appQuery, ignoreParams).then(appData =>{
-      const applications =createMapFromArray(appData); 
-      Product.find({},  productIgnoreParams).then(productData =>{
-        const products = createMapFromArray(productData);
-        ProductCategory.find({},  productIgnoreParams).then(productCategoryData =>{
-          const productCategories = createMapFromArray(productCategoryData)
-          result = { applications, products, productCategories}
+      const productIds = getAttributeList(appData, "product_id");
+      Product.find({ id: { $in: productIds} }, productIgnoreParams).then(productData =>{
+        const categoryIds = getAllAttributesFromArrayKey(productData, "categories");
+        ProductCategory.find({ id: { $in: categoryIds}},  productIgnoreParams).then(productCategoryData =>{
+          result = { 
+            applications:createMapFromArray(appData), 
+            products: createMapFromArray(productData), 
+            productCategories: createMapFromArray(productCategoryData)
+          }
           onSuccess(res, result)
         }).catch((e)=>onFailure(res, e))
       }).catch((e)=>onFailure(res, e))
