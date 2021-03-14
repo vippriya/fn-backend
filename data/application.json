@@ -22,7 +22,6 @@
   {
     "id": "3",
     "kbId": "3",
-
     "name": "Lumberyard",
     "categories": ["1"],
     "title": "game engine integrated with amazon web services.",
@@ -83,7 +82,6 @@
   {
     "id": "9",
     "kbId": "8",
-
     "name": "Banshee",
     "categories": ["1", "5"],
     "title": "",

@@ -3,37 +3,25 @@ const router = express.Router();
 const ProductCategory = require('../modals/productCategory');
 const Application = require('../modals/application');
 const Product= require('../modals/product');
-const helper = require('./helper/helper');
-
-function onSuccess( res, result){
- return res.send({
-      status:true,
-      ...result
-    })
-}
- function onFailure(res, e){
-   return res.send({
-      status:false,
-      e
-    });
- }
+const {getAppQueryListParams, onSuccess, onFailure, initializeCollection} = require('./helper/helper');
+const {createMapFromArray} = require('../utils/utils');
 
 
 router.get('/all',  (req,res)=>{
-
-    
-      Application.find({}).then(applications =>{
-        let result = { applications}   
-        Product.find({}).then(products =>{
-          result = { ...result, products}
-          ProductCategory.find({}).then(product_category =>{
-            result = { ...result, products, productCategories:product_category }
-            onSuccess(res, result)
-
-          }).catch((e)=>onFailure(res, e))
+    const appQuery = getAppQueryListParams({requestParam: "appId", filterDbParam: "id" , req});
+    const ignoreParams = { _id: 0, createdAt: 0};
+    const productIgnoreParams = { updatedAt: 0, ...ignoreParams};
+    Application.find(appQuery, ignoreParams).then(appData =>{
+      const applications =createMapFromArray(appData); 
+      Product.find({},  productIgnoreParams).then(productData =>{
+        const products = createMapFromArray(productData);
+        ProductCategory.find({},  productIgnoreParams).then(productCategoryData =>{
+          const productCategories = createMapFromArray(productCategoryData)
+          result = { applications, products, productCategories}
+          onSuccess(res, result)
         }).catch((e)=>onFailure(res, e))
       }).catch((e)=>onFailure(res, e))
-  
+    }).catch((e)=>onFailure(res, e))
 })
 
 // Fetch all product_categorys
@@ -158,6 +146,6 @@ router.post('/fn_fillAll', (req, res) => {
     modelName: "ProductCategory",
     model: ProductCategory
   }
-  helper.initializeCollection(params)
+  initializeCollection(params)
 }); 
 module.exports = router;

@@ -1,6 +1,5 @@
 const fs = require('fs')
-
-
+const url = require('url');
 
 const deleteAllData = async (model) => {
   try {
@@ -46,7 +45,34 @@ function initializeCollection({req, res,  filePath, modelName, model}) {
 
   })
 }
-const helpers = {
-    initializeCollection
+
+function onSuccess( res, result){
+ return res.send({
+      status:true,
+      ...result
+    })
 }
+ function onFailure(res, e){
+   return res.send({
+      status:false,
+      e
+    });
+ }
+ function getAppQueryListParams({requestParam, filterDbParam, req }){
+    const queryObject = url.parse(req.url,true).query;
+    const requestAppIds = queryObject[requestParam];
+    if(!requestAppIds){
+      return {};
+    }
+    var ids = requestAppIds.split(','); 
+    return { [filterDbParam]: { $in: ids} };
+}
+
+const helpers = {
+    getAppQueryListParams,
+    initializeCollection,
+    onSuccess,
+    onFailure
+}
+
 module.exports = helpers;
